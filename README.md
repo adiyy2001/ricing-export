@@ -181,3 +181,26 @@ Elementy:
 - Ghostty otwiera się z neonową paletą i blurem.
 - VS Code: Darcula, ikony JetBrains, brak błędów Custom UI Style.
 - Na GNOME: przyciski po lewej, rogi zaokrąglone, dok na dole, blur w Ghostty. Na KDE: zrzut ekranu z traffic lights po lewej, zaokrąglonymi rogami i dokiem na dole. Pokaż go właścicielowi.
+
+## 8. Claude Code: zasady uniwersalne
+
+Katalog `claude/` w repo (nie ma go w archiwum tar.gz) zawiera zasady pracy niezależne od maszyny:
+
+- `claude/CLAUDE.md`: globalne zasady (język, kod bez komentarzy, commity bez `Co-Authored-By`, weryfikacja przed końcem, oszczędzanie tokenów). Trafia do `~/.claude/CLAUDE.md`.
+- `claude/token-efficiency.md`: pełne zasady zużycia tokenów i prompt cache z pomiarami i źródłami. Trafia do `~/.claude/token-efficiency.md`.
+- `claude/settings.universal.json`: klucze do scalenia z `~/.claude/settings.json`. `attribution` z pustym `commit` i `pr` wyłącza stopki w commitach i PR-ach, `autoCompactWindow` 300000, `workflowSizeGuideline` small, subagenci na Sonnecie z cache 1 h, wyłączone podpowiedzi promptów i telemetria, effort per model, reguły deny dla wymuszonego pusha i twardego resetu w git.
+- `claude/statusline.sh`: pasek stanu (model, effort, rozmiar kontekstu, limity 5 h i 7 dni, zimny cache). Wymaga `jq`.
+
+```bash
+B=https://raw.githubusercontent.com/adiyy2001/ricing-export/main/claude
+mkdir -p ~/.claude && cd ~/.claude
+for f in CLAUDE.md token-efficiency.md statusline.sh settings.universal.json; do
+  [ -f "$f" ] && cp "$f" "$f.bak-$(date +%F)"
+  curl -fsSLO "$B/$f"
+done
+chmod +x statusline.sh
+[ -f settings.json ] || echo '{}' > settings.json
+jq -s '.[0] * .[1]' settings.json settings.universal.json > settings.merged.json && mv settings.merged.json settings.json
+```
+
+Nie ma tu uprawnień `allow`, trybu uprawnień, hooków, skilli ani serwerów MCP z CachyOS, bo zależą od tamtej maszyny i kont. Zmiany w `settings.json` działają od następnej sesji.

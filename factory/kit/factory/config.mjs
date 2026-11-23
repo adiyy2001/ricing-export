@@ -1,0 +1,11 @@
+export const RULEBOOK = 'waves/rulebook.md';
+export const IMPLEMENTER = 'wave-implementer';
+export const REVIEWER = 'wave-reviewer';
+export const REVIEW_SOURCES = ['docs/requirements.md'];
+export const PROTECTED = ['factory/**', 'scripts/gate.sh', 'scripts/gate/**', '.claude/**', 'waves/**', 'docs/**'];
+export const DEPENDENCY_FILES = ['package.json', 'package-lock.json', 'pnpm-lock.yaml', 'pnpm-workspace.yaml'];
+export const PRODUCTION_CODE = /^src\/.*\.(?:ts|tsx|js|mjs)$/;
+export const TEST_FILE = /(?:Test|IT)\.java$|\.(?:spec|test)\.(?:ts|tsx|js|mjs)$/;
+export const SCANNED_ROOTS = ['src/', 'scripts/', 'factory/'];
+export const SKIPPED = /(?:^|\/)(?:dist|build|target|node_modules|coverage)\/|(?:^|\/)mvnw(?:\.cmd)?$|(?:pnpm-lock\.yaml|package-lock\.json)$|\.(?:ico|png|jpg|webp|woff2?)$/;
+export const IMMUTABLE = /(?:^|\/)db\/migration\//;

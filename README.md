@@ -204,3 +204,7 @@ jq -s '.[0] * .[1]' settings.json settings.universal.json > settings.merged.json
 ```
 
 Nie ma tu uprawnień `allow`, trybu uprawnień, hooków, skilli ani serwerów MCP z CachyOS, bo zależą od tamtej maszyny i kont. Zmiany w `settings.json` działają od następnej sesji.
+
+## 9. Fabryka: praca bez nadzoru
+
+Katalog `factory/` (nie ma go w archiwum tar.gz) zawiera mechanikę kolejek z CachyOS: konduktor, który bierze pozycje z `queue.json`, każdą daje świeżej sesji `claude -p`, sprawdza zakres plików, testy i bramkę, a commituje dopiero po bramce. Instrukcja wdrożenia w projekcie: `factory/README.md`. Zestaw do skopiowania: `factory/kit/`.

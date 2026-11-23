@@ -1,0 +1,31 @@
+{
+  "wave": "example",
+  "branch": "build/example",
+  "items": [
+    {
+      "id": "E1",
+      "title": "greeting module with a test",
+      "agent": "wave-implementer",
+      "model": "sonnet",
+      "effort": "medium",
+      "files": ["src/greeting/**"],
+      "brief": "Export greet(name) returning 'Hello, <name>'. Add a unit test for an ordinary name and for an empty one.",
+      "dependsOn": [],
+      "sources": ["waves/rulebook.md"]
+    },
+    {
+      "id": "E2",
+      "title": "owner picks the default language",
+      "agent": "owner",
+      "dependsOn": ["E1"]
+    },
+    {
+      "id": "E3",
+      "title": "review of the greeting module",
+      "kind": "review",
+      "files": ["src/greeting/**"],
+      "dependsOn": ["E1"],
+      "sources": ["waves/rulebook.md"]
+    }
+  ]
+}
